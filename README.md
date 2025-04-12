@@ -78,44 +78,34 @@ Register no:212224240155 Name:S.Harika
 
 ## client:
 ```
-import socket
+Import socket
+from datetime import datetime
 s=socket.socket()
 s.bind(('localhost',8000))
-s.listen(5)
-c,addr=s.accept()
-size=int(input("Enter number of frames to send : "))
-l=list(range(size))
-s=int(input("Enter Window Size : "))
-st=0
-i=0
-while True:
-while(i<len(l)):
-st+=s
-c.send(str(l[i:st]).encode())
-ack=c.recv(1024).decode()
-if ack:
-print(ack)
-i+=s
+ s.listen(5)
+ c,addr=s.accept()
+ print("Client Address : ",addr)
+ now = datetime.now()
+ c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())
+ ack=c.recv(1024).decode()
+ if ack:
+    print(ack)
+ 
+c.close()
 ```
 ## server:
 ```
-import socket
-s=socket.socket()
-s.connect(('localhost',8000))
-while True:
-print(s.recv(1024).decode())
-s.send("acknowledgement recived from the server".encode())
+import socket 
+s=socket.socket() 
+s.connect(('localhost',8000)) 
+print(s.getsockname()) 
+print(s.recv(1024).decode()) 
+s.send
+("acknowledgement recived from the server".encode()) 
 ```
 
 ## Output:
-
-## CLIENT:
-![Screenshot 2025-04-08 102629](https://github.com/user-attachments/assets/4e37c488-3ea6-4790-a8f5-dd4a5274280f)
-
-## SERVER:
-![Screenshot 2025-04-08 102658](https://github.com/user-attachments/assets/3cd8ed10-ccb0-4b35-b05c-2038faabccee)
-
-
+![Screenshot 2025-04-12 131747](https://github.com/user-attachments/assets/0649e0b9-222b-4dfa-990d-9cf227e4e367)
 
 
 ## Result:
